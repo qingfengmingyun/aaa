@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>软件下载</title>
+<meta name="description" content="软件下载页：点击即可下载，持续更新。">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📦</text></svg>">
+<style>
+  :root {
+    --bg: #f4f6fb;
+    --card: #ffffff;
+    --text: #1b1f2a;
+    --text-2: #7c8394;
+    --line: #e7eaf3;
+    --accent: #4f6ef7;
+    --accent-2: #8b5cf6;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(23,28,50,.04), 0 6px 18px rgba(23,28,50,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1017;
+      --card: #161b26;
+      --text: #edf0f7;
+      --text-2: #8b93a6;
+      --line: #242b3a;
+      --shadow: 0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.3);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    left: 50%;
+    top: -200px;
+    width: 640px;
+    height: 420px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(79,110,247,.20), rgba(139,92,246,.10) 55%, transparent 72%);
+    filter: blur(30px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 44px 18px 60px;
+  }
+  header { text-align: center; margin-bottom: 30px; }
+  .logo {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    background: linear-gradient(135deg, rgba(79,110,247,.15), rgba(139,92,246,.15));
+    border-radius: 22px;
+  }
+  h1 { font-size: 26px; font-weight: 700; letter-spacing: .5px; }
+  h1 span {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .sub { margin-top: 8px; font-size: 14px; color: var(--text-2); }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .search { position: relative; flex: 1; min-width: 200px; }
+  .search svg {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    stroke: var(--text-2);
+    pointer-events: none;
+  }
+  .search input {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px 0 38px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--card);
+    color: var(--text);
+    font-size: 14px;
+    outline: none;
+    box-shadow: var(--shadow);
+    transition: border-color .15s ease;
+  }
+  .search input:focus { border-color: var(--accent); }
+  .count { font-size: 13px; color: var(--text-2); white-space: nowrap; }
+
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform .16s ease, border-color .16s ease;
+  }
+  .item:hover { transform: translateY(-2px); border-color: rgba(79,110,247,.45); }
+  .icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    background: linear-gradient(135deg, rgba(79,110,247,.12), rgba(139,92,246,.12));
+    border-radius: 13px;
+  }
+  .info { flex: 1; min-width: 0; }
+  .name {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .meta { margin-top: 3px; font-size: 12.5px; color: var(--text-2); }
+  .btn {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity .15s ease, transform .15s ease;
+  }
+  .btn:hover { opacity: .88; }
+  .btn:active { transform: scale(.96); }
+
+  .empty {
+    padding: 46px 16px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-2);
+    background: var(--card);
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+  }
+  footer {
+    margin-top: 34px;
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-2);
+    line-height: 1.8;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 30px 14px 48px; }
+    h1 { font-size: 22px; }
+    .item { gap: 11px; padding: 12px 13px; }
+    .icon { flex-basis: 40px; width: 40px; height: 40px; font-size: 19px; border-radius: 11px; }
+    .name { font-size: 14px; }
+    .btn { height: 35px; padding: 0 15px; font-size: 13.5px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">📦</div>
+    <h1><span>软件下载</span></h1>
+    <p class="sub">点击按钮即可下载 · 文件持续更新</p>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <label class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.5" y2="16.5"></line>
+        </svg>
+        <input id="search" type="search" placeholder="搜索文件名…" autocomplete="off" aria-label="搜索文件">
+      </label>
+      <div class="count" id="count"></div>
+    </div>
+
+    <div class="list" id="list"></div>
+    <div class="empty" id="empty">加载中…</div>
+  </main>
+
+  <footer id="footer">仅供学习交流，请支持正版软件</footer>
+</div>
+
+<noscript>
+  <div style="text-align:center;padding:20px;color:#888;">本站需要启用 JavaScript 才能显示文件列表。</div>
+</noscript>
+
+<script>
+(function () {
+  "use strict";
+
+  var listEl = document.getElementById("list");
+  var emptyEl = document.getElementById("empty");
+  var countEl = document.getElementById("count");
+  var footerEl = document.getElementById("footer");
+  var searchEl = document.getElementById("search");
+
+  var ICONS = {
+    apk: "📱",
+    exe: "🖥️", msi: "🖥️", msix: "🖥️",
+    dmg: "🍎", ipa: "🍎",
+    zip: "🗜️", rar: "🗜️", "7z": "🗜️", tar: "🗜️", gz: "🗜️",
+    iso: "💿", img: "💿",
+    mp3: "🎵", wav: "🎵", flac: "🎵",
+    mp4: "🎬", mkv: "🎬", avi: "🎬",
+    pdf: "📕",
+    doc: "📘", docx: "📘",
+    xls: "📗", xlsx: "📗",
+    ppt: "📙", pptx: "📙",
+    txt: "📄", md: "📄",
+    json: "🧩", xml: "🧩",
+    ttf: "🔤", otf: "🔤",
+    sh: "⌨️", bat: "⌨️"
+  };
+
+  var allFiles = [];
+
+  function iconOf(name) {
+    var dot = name.lastIndexOf(".");
+    var ext = dot >= 0 ? name.slice(dot + 1).toLowerCase() : "";
+    return ICONS[ext] || "📦";
+  }
+
+  function formatSize(bytes) {
+    if (typeof bytes !== "number" || !isFinite(bytes) || bytes < 0) return "";
+    if (bytes < 1024) return bytes + " B";
+    var units = ["KB", "MB", "GB", "TB"];
+    var v = bytes;
+    var i = -1;
+    do {
+      v = v / 1024;
+      i += 1;
+    } while (v >= 1024 && i < units.length - 1);
+    return (v >= 100 ? Math.round(v) : v.toFixed(1)) + " " + units[i];
+  }
+
+  function makeItem(file) {
+    var item = document.createElement("div");
+    item.className = "item";
+
+    var icon = document.createElement("div");
+    icon.className = "icon";
+    icon.textContent = iconOf(file.name);
+
+    var info = document.createElement("div");
+    info.className = "info";
+
+    var name = document.createElement("div");
+    name.className = "name";
+    name.textContent = file.name;
+    name.title = file.name;
+
+    var meta = document.createElement("div");
+    meta.className = "meta";
+    meta.textContent = formatSize(file.size);
+
+    info.appendChild(name);
+    info.appendChild(meta);
+
+    var btn = document.createElement("a");
+    btn.className = "btn";
+    btn.href = encodeURIComponent(file.name);
+    btn.setAttribute("download", "");
+    btn.textContent = "下载";
+
+    item.appendChild(icon);
+    item.appendChild(info);
+    item.appendChild(btn);
+    return item;
+  }
+
+  function render() {
+    var q = searchEl.value.trim().toLowerCase();
+    var files = q
+      ? allFiles.filter(function (f) {
+          return f.name.toLowerCase().indexOf(q) !== -1;
+        })
+      : allFiles;
+
+    while (listEl.firstChild) listEl.removeChild(listEl.firstChild);
+
+    if (!files.length) {
+      emptyEl.style.display = "";
+      emptyEl.textContent = allFiles.length
+        ? "没有找到匹配的文件"
+        : "暂无可下载的文件：把文件放入网站目录后，重新生成 files.json 即可。";
+    } else {
+      emptyEl.style.display = "none";
+      for (var i = 0; i < files.length; i += 1) {
+        listEl.appendChild(makeItem(files[i]));
+      }
+    }
+
+    countEl.textContent = files.length ? "共 " + files.length + " 个文件" : "";
+  }
+
+  function showError(msg) {
+    emptyEl.style.display = "";
+    emptyEl.textContent = msg;
+    countEl.textContent = "";
+  }
+
+  function load() {
+    fetch("./files.json?v=" + Date.now(), { cache: "no-store" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var list = data && data.files;
+        allFiles = Array.isArray(list) ? list : [];
+        if (data && data.generated) {
+          footerEl.textContent = "清单更新于 " + data.generated + " · 仅供学习交流";
+        }
+        render();
+      })
+      .catch(function () {
+        showError("文件清单加载失败：请先运行 generate_list.py 生成 files.json，或稍后刷新重试。");
+      });
+  }
+
+  searchEl.addEventListener("input", render);
+  load();
+})();
+</script>
+</body>
+</html>
