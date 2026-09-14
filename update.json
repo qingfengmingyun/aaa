@@ -1,12 +1,12 @@
 {
-  "generated": "2026-09-14 23:37:43",
+  "generated": "2026-09-15 00:07:57",
   "apps": {
     "com.qfmy.qfmyckq": {
       "name": "qfmy查看器（重构版）",
       "versionName": "6.3",
       "file": "qfmy查看器（重构版）_6.3.apk",
-      "size": 301375,
-      "md5": "df257667d94a762ed0e6c708b6c52998",
+      "size": 264511,
+      "md5": "04a68f0275f3c5d68ba0d03fcd0b7790",
       "notes": "6.3 新增B站链接下载，新增软件更新检测"
     }
   }
