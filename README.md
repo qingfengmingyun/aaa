@@ -10,6 +10,9 @@
 | --- | --- |
 | `index.html` | 网页本体（文件列表 + 搜索 + 下载按钮） |
 | `files.json` | 文件清单，由脚本自动生成，**不需要手动修改** |
+| `update.json` | APP「检查更新」数据，由脚本自动生成，**不需要手动修改** |
+| `versions.json` | 更新说明配置（可选：给每个版本写更新文案） |
+| `functions/api/update.js` | APP「检查更新」接口（Cloudflare Pages Function） |
 | `generate_list.py` | 生成清单的脚本 |
 | `.github/workflows/update-files.yml` | 可选：推送到 GitHub 后自动更新清单 |
 | `README.md` | 本说明 |
@@ -102,6 +105,37 @@ python3 -m http.server 8000
 
 然后浏览器打开 <http://localhost:8000>。
 （直接双击打开 `index.html` 可能因浏览器安全限制看不到列表，属正常现象。）
+
+## APP 更新检查（自动化，新增）
+
+网站同时提供 APP 的「检查更新」接口：`https://你的域名/api/update?pkg=包名&vn=版本名`
+
+**以后发布新版本，只需 2 步：**
+
+1. 把新 APK 放进本目录，命名必须是「软件名_版本号.apk」（例如 `qfmy查看器（重构版）_6.3.apk`）；
+2. 提交推送（或网页上传）→ Cloudflare 自动构建 → APP 即可检查到新版本。
+
+构建脚本会自动挑出**版本号最高**的 APK 作为最新版；不符合命名格式的文件（测试包、别家软件）不会被纳入更新检查。
+
+想写「更新说明」？编辑 `versions.json` 即可（可选）：
+
+```json
+{
+  "apps": {
+    "com.qfmy.qfmyckq": {
+      "name": "qfmy查看器（重构版）",
+      "notes": {
+        "6.3": "6.3 更新：修复了xxx，新增了xxx",
+        "default": "优化与修复，建议更新到最新版本。"
+      }
+    }
+  }
+}
+```
+
+（`notes` 里按版本号写说明；没写的版本会显示 `default` 文案。）
+
+---
 
 ## 常见问题
 
