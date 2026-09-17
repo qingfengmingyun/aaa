@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-17 02:07:14",
+  "generated": "2026-09-17 13:13:04",
   "apps": {
     "com.qfmy.qfmyckq": {
       "name": "qfmy查看器（重构版）",
-      "versionName": "6.5",
-      "file": "qfmy查看器（重构版）_6.5.apk",
-      "size": 436745,
-      "md5": "d95f5886f500ecd2bfd4f5dbc5bc5639",
-      "notes": "6.5 新增WiFi蓝牙文件传输，新增进度通知，新增下载断点传输，调整底部导航栏"
+      "versionName": "6.6",
+      "file": "qfmy查看器（重构版）_6.6.apk",
+      "size": 440841,
+      "md5": "09550bb32ffb0890c8f168a10aa87472",
+      "notes": "6.6 修复已知bug，权限深度适配"
     }
   }
 }
