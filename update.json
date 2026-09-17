@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-17 13:13:04",
+  "generated": "2026-09-17 23:24:20",
   "apps": {
     "com.qfmy.qfmyckq": {
       "name": "qfmy查看器（重构版）",
-      "versionName": "6.6",
-      "file": "qfmy查看器（重构版）_6.6.apk",
-      "size": 440841,
-      "md5": "09550bb32ffb0890c8f168a10aa87472",
-      "notes": "6.6 修复已知bug，权限深度适配"
+      "versionName": "6.7",
+      "file": "qfmy查看器（重构版）_6.7.apk",
+      "size": 481868,
+      "md5": "4c5f607ace4518d7091a3439fdd8aaf8",
+      "notes": "6.7 添加权限管理界面，修复已知bug，新增压缩包伪装"
     }
   }
 }
