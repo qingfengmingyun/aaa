@@ -1,11 +1,16 @@
 {
-  "generated": "2026-09-17 23:24:20",
-  "count": 1,
+  "generated": "2026-10-01 13:37:38",
+  "count": 2,
   "files": [
     {
-      "name": "qfmy查看器（重构版）_6.7.apk",
-      "size": 481868,
-      "mtime": "2026-09-17 23:21"
+      "name": "qfmy查看器（重构版）_6.8.apk",
+      "size": 436722,
+      "mtime": "2026-10-01 13:37"
+    },
+    {
+      "name": "versions.json.bak",
+      "size": 273,
+      "mtime": "2026-10-01 13:29"
     }
   ]
 }
